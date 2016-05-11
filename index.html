@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar creepypasta</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <div class="wrapper">
+        <h1>Envía tu creepypasta</h1>
+        <p></p>
+        <form class="form" method="post" action="https://creepypastas.com/enviar">
+            <div>
+                <p id="titleHelp">Por favor escribe el nombre de tu aporte.<br />
+                    <b>Ejemplo:</b> El juego de la llamada
+                </p>
+            </div>
+            <input id="postTitle" type="text" placeholder="Título">
+            <div>
+                <p id="contentHelp">Por favor escribe tu aporte.</p>
+            </div>
+            <textarea id="postContent" rows="11" placeholder="Contenido"></textarea>
+            <input type="submit" class="submit" value="Enviar">
+        </form>
+    </div>
+    <p class="optimize">
+        Creepypastas.com está hecho con Wordpress, BuddyPress y <b>mucho amor</b>
+    </p>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
