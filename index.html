@@ -25,7 +25,12 @@
             </div>
             <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
             <input type="submit" class="submit" value="Enviar">
-            {{frm.response | json}}
+            <ul ng-if="frm.response.error">
+              <li ng-repeat="error in frm.response.errors">{{error}}</li>
+            </ul>
+            <ul ng-if="frm.response.success">
+              <li><b>Gracias por tu envío</b>. Tu aporte fue guardado con id <b>{{frm.response.post_id}}</b> y será revisado próximamente por el equipo de moderadores.</li>
+            </ul>
         </form>
     </div>
     <p class="optimize">
