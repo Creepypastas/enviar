@@ -13,18 +13,19 @@
     <div class="wrapper">
         <h1>Envía tu creepypasta</h1>
         <p></p>
-        <form ng-controller="formCtrl" class="form" method="post" action="https://creepypastas.com/enviar">
+        <form ng-controller="formCtrl as frm" class="form" method="post" ng-submit="submitPost()">
             <div>
                 <p id="titleHelp">Por favor escribe el nombre de tu aporte.<br />
                     <b>Ejemplo:</b> El juego de la llamada
                 </p>
             </div>
-            <input ng-model="post.title" id="postTitle" type="text" placeholder="Título">
+            <input ng-model="frm.post.title" id="postTitle" type="text" placeholder="Título">
             <div>
                 <p id="contentHelp">Por favor escribe tu aporte.</p>
             </div>
-            <textarea ng-model="post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
+            <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
             <input type="submit" class="submit" value="Enviar">
+            {{frm.response | json}}
         </form>
     </div>
     <p class="optimize">
