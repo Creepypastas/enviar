@@ -24,6 +24,11 @@
                 <p id="contentHelp">Por favor escribe tu aporte.</p>
             </div>
             <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
+
+            <div>
+              <input ng-model="frm.currentUser.username" id="userName" type="text" placeholder="usuario">
+              <input ng-model="frm.currentUser.p" id="userP" type="password" placeholder="password">
+            </div>
             <input type="submit" class="submit" value="Enviar">
             <ul ng-if="frm.response.error">
               <li ng-repeat="error in frm.response.errors">{{error}}</li>
