@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Enviar creepypasta</title>
+    <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-app="creepypastasApp">
@@ -10,7 +11,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <div class="wrapper">
+    <div class="container wrapper">
         <h1>Envía tu creepypasta</h1>
         <p></p>
         <form ng-controller="formCtrl as frm" class="form" method="post" ng-submit="submitPost()">
@@ -25,14 +26,15 @@
             </div>
             <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
 
-            <div>
-                <div class="half">
+            <div class="row">
+                <div class="col-md-6">
                     <input ng-model="frm.currentUser.username" id="userName" type="text" placeholder="usuario">
                 </div>
-                <div class="half">
-                    <input ng-model="frm.currentUser.p" id="userP" type="password" placeholder="password">
+                <div class="col-md-6">
+                    <input ng-model="frm.currentUser.p" id="userP" type="password" placeholder="contraseña">
                 </div>
             </div>
+
             <input type="submit" class="submit" value="Enviar">
             <ul ng-if="frm.response.error">
               <li ng-repeat="error in frm.response.errors">{{error}}</li>

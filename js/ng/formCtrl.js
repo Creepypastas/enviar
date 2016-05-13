@@ -15,8 +15,8 @@ angular.module('creepypastasApp', [])
             content: ''
         };
         formCtrl.currentUser = {
-            username: 'invitado',
-            p: 'invitado'
+            username: '',
+            p: ''
         };
 
         formCtrl.response = {};

@@ -51,7 +51,7 @@ p{
 
 input[type="text"],input[type="email"],input[type="password"],textarea{
   font-size: 17px;
-  width:98%;
+  width:100%;
   padding:15px 0px 15px 8px;
   border-radius:5px;
   box-shadow:inset 4px 6px 10px -4px rgba(0,0,0,0.3), 0 1px 1px -1px rgba(255,255,255,0.3);
@@ -111,10 +111,4 @@ input[type="submit"]:hover{
   position:fixed;
   right:3%;
   top:0px;
-}
-
-.half{
-  width: 40%;
-  display: inline-block;
-  margin-right: 10px;
 }
