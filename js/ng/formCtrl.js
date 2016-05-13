@@ -7,8 +7,8 @@
  *
  * @requires $scope
  * */
-angular.module('creepypastasApp', [])
-    .controller('formCtrl', ['$scope', '$http', function ($scope, $http) {
+angular.module('creepypastasApp', ['ngAnimate', 'toastr'])
+    .controller('formCtrl', ['$scope', '$http', 'toastr', function ($scope, $http, toastr) {
         var formCtrl = this;
         formCtrl.post = {
             title: '',
@@ -19,7 +19,10 @@ angular.module('creepypastasApp', [])
             p: ''
         };
 
-        formCtrl.response = {};
+        formCtrl.response = {
+            error: undefined,
+            errors: {}
+        };
 
         $scope.submitPost = function () {
             formCtrl.sendCommand("post-new");
@@ -36,11 +39,36 @@ angular.module('creepypastasApp', [])
                 console.log("updatePost::response");
                 console.log(res.data);
                 formCtrl.response = res.data;
+                formCtrl.toastrAll(res.data);
             }, function error(res) {
                 console.error("updatePost::response");
                 console.error(res.data);
                 formCtrl.response = res.data;
             });
         };
+
+        formCtrl.toastrAll = function (data) {
+            console.log("app::toastrAll::init");
+
+            if (true === data.error && typeof data.errors === 'object') {
+                console.log("app::toastrAll::toasting errors");
+                for (var error in data.errors) {
+                    if (data.errors.hasOwnProperty(error) && typeof error == 'string') {
+                        toastr.error(data.errors[error], error);
+                    }
+                }
+            }
+
+            if (true === data.success && typeof data.post_id == 'number'){
+                console.log("app::toastrAll::toasting success");
+                toastr.success('Id de tu envío: ' + data.post_id, '¡Aporte guardado!');
+            }
+
+            if(typeof data.error == 'undefined' && typeof data.success == 'undefined') {
+                console.log("app::toastrAll::toasting ups");
+                toastr.info('¡Ups!', 'Algo extraño sucede, por favor envíanos un email');
+            }
+
+        }
 
     }]);
