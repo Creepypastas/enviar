@@ -16,17 +16,8 @@
         <h1>Envía tu creepypasta</h1>
         <p></p>
         <form ng-controller="formCtrl as frm" class="form" method="post" ng-submit="submitPost()">
-            <div>
-                <p id="titleHelp">Por favor escribe el nombre de tu aporte.<br />
-                    <b>Ejemplo:</b> El juego de la llamada
-                </p>
-            </div>
             <input ng-model="frm.post.title" id="postTitle" type="text" placeholder="Título">
-            <div>
-                <p id="contentHelp">Por favor escribe tu aporte.</p>
-            </div>
             <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
-
             <div class="row">
                 <div class="col-md-6">
                     <input ng-model="frm.currentUser.username" id="userName" type="text" placeholder="usuario">
@@ -35,7 +26,6 @@
                     <input ng-model="frm.currentUser.p" id="userP" type="password" placeholder="contraseña">
                 </div>
             </div>
-
             <input type="submit" class="submit" value="Enviar">
         </form>
     </div>
