@@ -7,12 +7,14 @@
  *
  * @requires $scope
  * */
-angular.module('creepypastasApp', ['ngAnimate', 'toastr'])
+angular.module('creepypastasApp', ['ngAnimate', 'toastr', 'ngTagsInput'])
     .controller('formCtrl', ['$scope', '$http', 'toastr', function ($scope, $http, toastr) {
         var formCtrl = this;
         formCtrl.post = {
             title: '',
-            content: ''
+            content: '',
+            category: [],
+            categoriesObj : []
         };
         formCtrl.currentUser = {
             username: '',
@@ -22,6 +24,24 @@ angular.module('creepypastasApp', ['ngAnimate', 'toastr'])
         formCtrl.response = {
             error: undefined,
             errors: {}
+        };
+
+        $scope.loadSuperheroes = function(query) {
+          return $http.get('https://json.creepypastas.com/creepypastas.com/terms/categories.json');
+        };
+
+        $scope.catAdded = function(tag) {
+          formCtrl.post.category = [];
+          for (var i = 0; i < formCtrl.post.categoriesObj.length; i++) {
+            formCtrl.post.category.push(formCtrl.post.categoriesObj[i].term_id);
+          }
+        };
+
+        $scope.catRemoved = function(tag) {
+          formCtrl.post.category = [];
+          for (var i = 0; i < formCtrl.post.categoriesObj.length; i++) {
+            formCtrl.post.category.push(formCtrl.post.categoriesObj[i].term_id);
+          }
         };
 
         $scope.submitPost = function () {

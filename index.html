@@ -11,6 +11,7 @@
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="https://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
 </head>
 <body ng-app="creepypastasApp">
     <div class="container wrapper">
@@ -21,9 +22,20 @@
             <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
-                    <input ng-model="frm.post.category" id="postCategory" type="text" placeholder="Categorías (números)">
+                  <tags-input ng-model="frm.post.categoriesObj"
+                              placeholder="Categorías"
+                              display-property="name"
+                              replace-spaces-with-dashes="false"
+                              add-from-autocomplete-only="true"
+                              on-tag-added="catAdded($tag)"
+                              on-tag-removed="catRemoved($tag)">
+                    <auto-complete source="loadSuperheroes($query)"
+                                   min-length="0"
+                                   debounce-delay="0"
+                                   max-results-to-show="10"></auto-complete>
+                  </tags-input>
                 </div>
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-6">
                     <input ng-model="frm.post.tags" id="postTags" type="text" placeholder="Etiquetas (separadas por comas)">
                 </div>
             </div>
@@ -52,7 +64,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
     <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/ng/formCtrl.js"></script>
 </body>
