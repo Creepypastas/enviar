@@ -21,6 +21,22 @@
             <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
+                    <input ng-model="frm.post.category" id="postCategory" type="text" placeholder="Categorías (números)">
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <input ng-model="frm.post.tags" id="postTags" type="text" placeholder="Etiquetas (separadas por comas)">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <input ng-model="frm.post.fuente_text" id="postFuenteText" type="text" placeholder="Origen del creepypasta">
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <input ng-model="frm.post.fuente_url" id="postFuenteUrl" type="url" placeholder="URL original (opcional)">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
                     <input ng-model="frm.currentUser.username" id="userName" type="text" placeholder="usuario">
                 </div>
                 <div class="col-md-6 col-xs-12">
