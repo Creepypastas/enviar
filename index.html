@@ -63,6 +63,20 @@
             <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
                 <div>
                     <md-input-container>
+                        <label>Origen</label>
+                        <input ng-model="frm.post.fuente_text">
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container>
+                        <label>URL original (opcional)</label>
+                        <input ng-model="frm.post.fuente_url" type="url">
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <div>
+                    <md-input-container>
                         <label>Usuario</label>
                         <input ng-model="frm.currentUser.username">
                     </md-input-container>
@@ -74,8 +88,10 @@
                     </md-input-container>
                 </div>
             </md-content>
+            <md-content layout="row" md-theme="docs-dark" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-button class="md-raised md-primary" ng-click="submitPost()">Enviar</md-button>
+            </md-content>
         </div>
-        <input type="submit" value="enviar" />
     </form>
 </div>
 
