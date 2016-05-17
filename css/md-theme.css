@@ -1,0 +1,11 @@
+md-whiteframe {
+  background-color: #3F515F;
+}
+
+md-tooltip.md-custom-dark-theme .md-content {
+  background-color: #2C2F30;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
