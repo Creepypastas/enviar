@@ -4,68 +4,82 @@
     <meta charset="UTF-8">
     <title>Enviar creepypasta</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="stylesheet" href="css/grid.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
-    <link rel="stylesheet" href="https://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css"/>
+    <link rel="stylesheet" href="css/grid.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.8/angular-material.min.css">
 </head>
 <body ng-app="creepypastasApp">
-    <div class="container wrapper">
-        <h1>Envía tu creepypasta</h1>
-        <p></p>
-        <form ng-controller="formCtrl as frm" class="form" method="post" ng-submit="submitPost()">
-            <input ng-model="frm.post.title" id="postTitle" type="text" placeholder="Título">
-            <textarea ng-model="frm.post.content" id="postContent" rows="11" placeholder="Contenido"></textarea>
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
-                  <tags-input ng-model="frm.post.categoriesObj"
-                              placeholder="Categorías"
-                              display-property="name"
-                              replace-spaces-with-dashes="false"
-                              add-from-autocomplete-only="true"
-                              on-tag-added="catAdded($tag)"
-                              on-tag-removed="catRemoved($tag)">
-                    <auto-complete source="loadSuperheroes($query)"
-                                   min-length="0"
-                                   debounce-delay="0"
-                                   max-results-to-show="10"></auto-complete>
-                  </tags-input>
+
+<div class="container" ng-controller="formCtrl as frm">
+    <form ng-submit="submitPost()">
+        <div layout="column" ng-cloak class="md-inline-form">
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <div>
+                    <md-input-container>
+                        <label>Título</label>
+                        <input ng-model="frm.post.title">
+                    </md-input-container>
                 </div>
-                <div class="col-md-6 col-xs-6">
-                    <input ng-model="frm.post.tags" id="postTags" type="text" placeholder="Etiquetas (separadas por comas)">
+            </md-content>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Contenido</label>
+                    <textarea ng-model="frm.post.content" md-maxlength="3000" rows="20" cols="200"
+                              md-select-on-focus></textarea>
+                    </md-input-container>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
-                    <input ng-model="frm.post.fuente_text" id="postFuenteText" type="text" placeholder="Origen del creepypasta">
+            </md-content>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <div>
+                    <md-chips ng-model="frm.post.categoriesObj" md-autocomplete-snap
+                              md-transform-chip="ctrl.transformChip($chip)"
+                              md-on-add="frm.catAdded($chip)"
+                              md-require-match="true">
+                        <md-autocomplete
+                                md-selected-item="frm.selectedItem"
+                                md-search-text="frm.searchText"
+                                md-items="item in frm.filterCategories(ctrl.searchText)"
+                                md-item-text="item.name"
+                                placeholder="Buscar categoría">
+                            <span md-highlight-text="frm.searchText">{{item.name}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>{{$chip.name}}</span>
+                        </md-chip-template>
+                    </md-chips>
                 </div>
-                <div class="col-md-6 col-xs-12">
-                    <input ng-model="frm.post.fuente_url" id="postFuenteUrl" type="url" placeholder="URL original (opcional)">
+                <div>
+                    <md-chips
+                            ng-model="frm.post.tagsList"
+                            md-on-add="frm.tagAdded($chip)"
+                            md-separator-keys="frm.keys"
+                            placeholder="Etiquetas"
+                            secondary-placeholder="Separadas por coma"></md-chips>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
-                    <input ng-model="frm.currentUser.username" id="userName" type="text" placeholder="usuario">
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <input ng-model="frm.currentUser.p" id="userP" type="password" placeholder="contraseña">
-                </div>
-            </div>
-            <input type="submit" class="submit" value="Enviar">
-        </form>
-    </div>
-    <p class="optimize">
-        Creepypastas.com está hecho con Wordpress, BuddyPress y <b>mucho amor</b>
-    </p>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
-    <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <script src="https://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/ng/formCtrl.js"></script>
+            </md-content>
+        </div>
+        <input type="submit" value="enviar" />
+    </form>
+</div>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-route.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-aria.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-messages.min.js"></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.8/angular-material.js"></script>
+
+<script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<script src="js/index.js"></script>
+<script src="js/ng/formCtrl.js"></script>
 </body>
 </html>

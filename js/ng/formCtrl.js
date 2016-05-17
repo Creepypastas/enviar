@@ -7,14 +7,16 @@
  *
  * @requires $scope
  * */
-angular.module('creepypastasApp', ['ngAnimate', 'toastr', 'ngTagsInput'])
-    .controller('formCtrl', ['$scope', '$http', 'toastr', function ($scope, $http, toastr) {
+angular.module('creepypastasApp', ['ngAnimate', 'toastr', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+    .controller('formCtrl', ['$scope', '$http', 'toastr', '$mdConstant', function ($scope, $http, toastr,$mdConstant) {
         var formCtrl = this;
         formCtrl.post = {
             title: '',
             content: '',
             category: [],
-            categoriesObj : []
+            categoriesObj: [{name:'categorías',term_id:1}],
+            tags: '',
+            tagsList:['etiquetas']
         };
         formCtrl.currentUser = {
             username: '',
@@ -26,22 +28,34 @@ angular.module('creepypastasApp', ['ngAnimate', 'toastr', 'ngTagsInput'])
             errors: {}
         };
 
-        $scope.loadSuperheroes = function(query) {
-          return $http.get('https://json.creepypastas.com/creepypastas.com/terms/categories.json');
+        formCtrl.availableCategories = [{term_id:14,name:"Canciones"},{term_id:12,name:"Caricaturas"},{term_id:464,name:"Cementerio"}];
+
+
+        this.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
+
+        formCtrl.filterCategories = function (query) {
+            console.log("filtering cats", formCtrl.availableCategories);
+            return formCtrl.availableCategories;
         };
 
-        $scope.catAdded = function(tag) {
-          formCtrl.post.category = [];
-          for (var i = 0; i < formCtrl.post.categoriesObj.length; i++) {
-            formCtrl.post.category.push(formCtrl.post.categoriesObj[i].term_id);
-          }
+        formCtrl.catAdded = function(cat) {
+            formCtrl.post.category = [];
+            for (var i = formCtrl.post.categoriesObj.length - 1; i >= 0; i--) {
+                if(formCtrl.post.categoriesObj[i].term_id !== 1)
+                    formCtrl.post.category.push(formCtrl.post.categoriesObj[i].term_id);
+                else {
+                    formCtrl.post.categoriesObj.splice(i, 1);
+                }
+            }
         };
 
-        $scope.catRemoved = function(tag) {
-          formCtrl.post.category = [];
-          for (var i = 0; i < formCtrl.post.categoriesObj.length; i++) {
-            formCtrl.post.category.push(formCtrl.post.categoriesObj[i].term_id);
-          }
+        formCtrl.tagAdded = function(tag) {
+            formCtrl.post.tags = formCtrl.post.tagsList.join();
+            for (var i = formCtrl.post.tagsList.length - 1; i > 0; i--) {
+                if(formCtrl.post.tagsList[i] === "etiquetas")
+                    formCtrl.post.tagsList.splice(i, 1);
+            }
+            formCtrl.post.tags = formCtrl.post.tagsList.join();
         };
 
         $scope.submitPost = function () {
@@ -79,16 +93,20 @@ angular.module('creepypastasApp', ['ngAnimate', 'toastr', 'ngTagsInput'])
                 }
             }
 
-            if (true === data.success && typeof data.post_id == 'number'){
+            if (true === data.success && typeof data.post_id == 'number') {
                 console.log("app::toastrAll::toasting success");
                 toastr.success('Id de tu envío: ' + data.post_id, '¡Aporte guardado!');
             }
 
-            if(typeof data.error == 'undefined' && typeof data.success == 'undefined') {
+            if (typeof data.error == 'undefined' && typeof data.success == 'undefined') {
                 console.log("app::toastrAll::toasting ups");
                 toastr.info('¡Ups!', 'Algo extraño sucede, por favor envíanos un email');
             }
 
         }
 
-    }]);
+    }]).config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('docs-dark', 'default')
+        .primaryPalette('yellow')
+        .dark();
+});
