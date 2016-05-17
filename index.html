@@ -60,6 +60,20 @@
                             secondary-placeholder="Separadas por coma"></md-chips>
                 </div>
             </md-content>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <div>
+                    <md-input-container>
+                        <label>Usuario</label>
+                        <input ng-model="frm.currentUser.username">
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container>
+                        <label>Contraseña</label>
+                        <input ng-model="frm.currentUser.p" type="password">
+                    </md-input-container>
+                </div>
+            </md-content>
         </div>
         <input type="submit" value="enviar" />
     </form>
